@@ -18,7 +18,7 @@ app.use(express.static("public"));
 // But it is often simpler to write the logic separately and import here
 // Also remember this require statement resovles to what is exported in
 // That file. In this case a function that takes in 'app'
-// require("./routes/api-routes.js")(app);
+require("./routes/api-routes.js")(app);
 // require("./routes/html-routes")(app);
 
 // Sync Models & Set Express Server to Listen
