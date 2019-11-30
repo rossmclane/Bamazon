@@ -1,5 +1,8 @@
 // Requirements
 var express = require("express");
+var exphbs = require("express-handlebars");
+
+// Must require db to interact with the database
 var db = require("./models");
 
 // Create the app
@@ -10,16 +13,15 @@ var PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Set Handlebars Engine
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
 // Serve Static Directory
 app.use(express.static("public"));
 
-// Require Routes
-// We could put all of our route logic here because app is here
-// But it is often simpler to write the logic separately and import here
-// Also remember this require statement resovles to what is exported in
-// That file. In this case a function that takes in 'app'
 require("./routes/api-routes.js")(app);
-// require("./routes/html-routes")(app);
+require("./routes/html-routes")(app);
 
 // Sync Models & Set Express Server to Listen
 db.sequelize.sync({ force: true }).then(function() {

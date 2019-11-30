@@ -1,4 +1,8 @@
+// Export a function that returns the sequelize object
 module.exports = function(sequelize, DataTypes) {
+  // sequelize.define creates a model object
+  // based on the schema definition passed into it
+  // It includes important query methods to be used later
   var Product = sequelize.define(
     "Product",
     {
