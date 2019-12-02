@@ -9,11 +9,14 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="css/style.css" />
     <script src="https://code.jquery.com/jquery.js"></script>
   </head>
 
   <body>
-    <div class="container">
+    <!-- <div class="container">
+      <h1>Bamazon!</h1>
+      <br />
       <form>
         <div class="form-group">
           <label for="product_name">Product Name</label>
@@ -28,10 +31,31 @@
           <label for="quantity">Quantity</label>
           <input class="form-control" id="quantity" placeholder="Quantity" />
         </div>
+        <br />
         <button id="submit" class="btn btn-primary">Submit Order</button>
+        <p>
+          <a href="/api/products"> API Products List</a>
+          |
+          <a href="https://github.com/rossmclane/Bamazon"> Github Repo</a>
+        </p>
       </form>
+    </div> -->
+    <div class="container">
+      <h1>Bamazon!</h1>
+      <br />
+      <table class="table" id="product-table">
+        <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Price ($)</th>
+            <th scope="col">Stock Quantity</th>
+            <th scope="col">Quantity</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="product-body"></tbody>
+      </table>
     </div>
-
     <div id="response"></div>
   </body>
 
@@ -47,6 +71,41 @@
 
       $.post("/api/products", orderData, function(data) {
         $("#response").text(data);
+      });
+    });
+
+    // Ajax Call to get the products
+    $.get("/api/products", function(products) {
+      var table_body = $("#product-body");
+
+      products.forEach(product => {
+        var tr = $("<tr>");
+        tr.append("<td>" + product.product_name + "</td>");
+        tr.append("<td>" + product.price + "</td>");
+        tr.append("<td>" + product.stock_quantity + "</td>");
+        tr.append(
+          `<td> <input type="text" name="fname" id='${product.id}'></input> </td>`
+        );
+        tr.append(
+          `<td> <button class='myButton' val='${product.id}' >Purchase</button> </td>`
+        );
+        table_body.append(tr);
+      });
+
+      $(".myButton").each(function() {
+        $(this).on("click", function() {
+          var val = $(this).attr("val");
+          $.get(`/api/products/${val}`, function(data) {
+            var obj = {
+              product_name: data.product_name,
+              quantity: $(`#${val}`).val()
+            };
+
+            $.post("/api/products/", obj, function(data) {
+              $("#response").text(data);
+            });
+          });
+        });
       });
     });
   </script>

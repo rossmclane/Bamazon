@@ -11,22 +11,22 @@ module.exports = function(app) {
     });
   });
 
-  // Get route, which finds the product object with the corresponding name
-  app.get("/api/products/:name", function(req, res) {
+  // Get route, which queries all Cart entries
+  app.get("/api/cart", function(req, res) {
+    db.Cart.findAll().then(function(dbCartProducts) {
+      res.json(dbCartProducts);
+    });
+  });
+
+  app.get("/api/products/:id", function(req, res) {
     db.Product.findOne({
       where: {
-        product_name: req.params.name
+        id: req.params.id
       }
     }).then(function(dbProduct) {
       res.json(dbProduct);
     });
   });
-
-  // app.post("/api/products/", function(req, res) {
-  //   db.Product.create(req.body).then(function(dbProduct) {
-  //     res.json(dbProduct);
-  //   });
-  // });
 
   // PUT route for updating posts
   app.post("/api/products", function(req, res) {
