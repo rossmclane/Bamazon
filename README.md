@@ -1,4 +1,4 @@
-# Project Title
+# Bamazon
 
 Store front with functionality to purchase things. Will notify you when something is
 
