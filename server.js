@@ -7,7 +7,7 @@ var db = require("./models");
 
 // Create the app
 var app = express();
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 3000;
 
 // Middleware so App can parse post data
 app.use(express.urlencoded({ extended: true }));
