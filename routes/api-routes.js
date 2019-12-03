@@ -47,7 +47,7 @@ module.exports = function(app) {
           where: {
             product_name: req.body.product_name
           }
-        }).then(function(dbPost) {
+        }).then(function() {
           res.send("Your Order Has Been Placed!");
         });
       }
