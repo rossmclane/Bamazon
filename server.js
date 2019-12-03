@@ -23,9 +23,11 @@ app.use(express.static("./public"));
 require("./routes/api-routes.js")(app);
 require("./routes/html-routes")(app);
 
+var seedData = require("./seedData.js");
 // Sync Models & Set Express Server to Listen
 db.sequelize.sync({ force: true }).then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
+    db.bulkCreate(seedData);
   });
 });
