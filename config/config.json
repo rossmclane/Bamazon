@@ -16,10 +16,10 @@
     "operatorsAliases": false
   },
   "production": {
-    "username": "root",
-    "password": "dreaming",
-    "database": "bamazon",
-    "host": "127.0.0.1",
+    "username": "uapoksi1x7cxsnbk",
+    "password": "belxtqnf09qwzoqb",
+    "database": "l5tw7y38djhjtm8n",
+    "host": "hcm4e9frmbwfez47.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql",
     "operatorsAliases": false,
     "use_env_variable": "JAWSDB_URL"
